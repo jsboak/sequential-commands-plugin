@@ -15,14 +15,16 @@ public class SSHConnect {
     private String userName;
     private String sshKeyPass;
     private String hostName;
+    private String strictHostKey;
     boolean usePrivKey;
 
-    public SSHConnect(String userName, String sshKeyPass, String hostName, boolean usePrivKey) {
+    public SSHConnect(String userName, String sshKeyPass, String hostName, boolean usePrivKey, String strictHostKey) {
 
         this.userName = userName;
         this.sshKeyPass = sshKeyPass;
         this.hostName = hostName;
         this.usePrivKey = usePrivKey;
+        this.strictHostKey = strictHostKey;
 
     }
 
@@ -32,11 +34,13 @@ public class SSHConnect {
         Session session = jsch.getSession(userName, hostName, 22);
 
         //TODO: Remove this when deploying for prod use. Or add plugin input-option...
-        session.setConfig("StrictHostKeyChecking", "no");
+        if (strictHostKey.equals("true")) {
+            session.setConfig("strictHostKeyChecking", "yes");
+        } else {
+            session.setConfig("StrictHostKeyChecking", "no");
+        }
 
-        //jsch.setKnownHosts("~/.ssh/known_hosts");
         if(usePrivKey) {
-//            sshKeyPass = sshKeyPass.replace("-----BEGIN RSA PRIVATE KEY-----", "-----BEGIN RSA PRIVATE KEY-----\r\n").replace("-----END RSA PRIVATE KEY-----", "\r\n-----END RSA PRIVATE KEY-----");
             byte[] privKey = sshKeyPass.getBytes(StandardCharsets.US_ASCII);
             jsch.addIdentity("privKey",privKey, null, null);
         } else {

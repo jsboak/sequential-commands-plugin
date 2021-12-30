@@ -26,7 +26,6 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.Map;
 
-
 @Plugin(service=ServiceNameConstants.WorkflowNodeStep,name="sequential-commands")
 @PluginDescription(title="sequential-commands", description="Send multiple commands in a single SSH Session. Particularly useful for network devices.")
 public class Sequentialcommands implements NodeStepPlugin, Describable{
@@ -54,6 +53,13 @@ public class Sequentialcommands implements NodeStepPlugin, Describable{
                     .renderingOption(StringRenderingConstants.DISPLAY_TYPE_KEY, "DYNAMIC_FORM")
                     .build()
             )
+            .property(PropertyBuilder.builder()
+                    .booleanType("strictHostKey")
+                    .title("Strict Host Key Checking")
+                    .description("If selected, require remote-host SSH key to be defined in ~/.ssh/known_hosts file, otherwise do not verify.")
+                    .renderingOption(StringRenderingConstants.GROUP_NAME,"SSH Settings")
+                    .build()
+            )
             .build();
    }
 
@@ -74,6 +80,8 @@ public class Sequentialcommands implements NodeStepPlugin, Describable{
           String sshKeyStoragePath;
           boolean usePrivKey;
           String sshPrivKey = null;
+
+          String strictHostKey = (String) configuration.get("strictHostKey");
 
           if (entry.getAttributes().get("ssh-password-storage-path") != null) {
               sshKeyStoragePath = entry.getAttributes().get("ssh-password-storage-path");
@@ -96,7 +104,7 @@ public class Sequentialcommands implements NodeStepPlugin, Describable{
 
               try {
 
-                  SSHConnect connection = new SSHConnect(userName,sshPrivKey,hostname,usePrivKey);
+                  SSHConnect connection = new SSHConnect(userName,sshPrivKey,hostname,usePrivKey, strictHostKey);
                   Session session = connection.connect();
 
                   Channel channel = session.openChannel("shell");
