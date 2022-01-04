@@ -2,8 +2,6 @@
 
 This is a Node Step Job plugin that sends commands to a remote node via SSH. The commands occur in the same SSH channel, and therefore share state.  This is particularly useful for network devices, where you might use the command `conf t` followed by a series of commands such as `interface vlan 1` and `ip address 1.1.1.1 255.255.255.0` and `no shut`.  Use-cases for compute resources would be if you could only execute certain commands from a particular working directory or with certain environment variables set.
 
-Use this plugin to send multiple commands to the comandline of remote devices via SSH in a single Job step.
-
 ![Screen Shot 2021-12-30 at 3 55 39 PM](https://user-images.githubusercontent.com/11511251/147795129-b5a593ec-82e8-4acd-a25b-69270fd8c55a.png)
 
 # Build
@@ -36,13 +34,3 @@ The output for this example (on a Cisco CSR) would appear like so:
 ![Screen Shot 2022-03-16 at 11 27 20 AM](https://user-images.githubusercontent.com/11511251/158661436-391f4134-b96d-4606-898f-34938d9ccad1.png)
 
 Optionally select the **`Strict Host Key Checking`** checkbox to choose whether or not Rundeck checks that the remote-node is in the `known_hosts` file.
-
-Run the following command to built the jar file:
-
-`./gradlew clean build`
-
-# Install
-Copy the `SEQUENTIAL-COMMANDS-x.y.x.jar` file to the `$RDECK_BASE/libext/` directory inside your Rundeck installation.
-
-
-Or you can upload the jar file as described [here](https://docs.rundeck.com/docs/learning/howto/calling-apis.html#community-version-prerequisite).
