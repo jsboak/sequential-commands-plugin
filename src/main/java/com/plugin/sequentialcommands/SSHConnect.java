@@ -51,14 +51,14 @@ public class SSHConnect {
         return session;
     }
 
-    public PrintStream printStream(Channel channel) throws Exception {
-
-        OutputStream ops = channel.getOutputStream();
-        PrintStream ps = new PrintStream(ops, true);
-        channel.connect();
-
-        return ps;
-    }
+//    public PrintStream printStream(Channel channel) throws Exception {
+//
+//        OutputStream ops = channel.getOutputStream();
+//        PrintStream ps = new PrintStream(ops, true);
+//        channel.connect();
+//
+//        return ps;
+//    }
 
     static void printResult(InputStream input,
                             Channel channel) throws Exception {
@@ -71,11 +71,15 @@ public class SSHConnect {
                 if(i < 0)
                     break;
                 System.out.print(new String(tmp, 0, i));
-            } if(channel.isClosed()) {
+            }
+
+            channel.disconnect();
+
+            if(channel.isClosed()) {
                 break;
             }
 
-            Thread.sleep(300);
+            Thread.sleep(500);
         }
     }
 

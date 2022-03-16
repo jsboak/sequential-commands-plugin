@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Rundeck-Plugin-Classnames: com.plugin.sequentialcommands.Sequentialcom
+ mands
+Rundeck-Plugin-File-Version: 0.1.0
+Rundeck-Plugin-License: Apache 2.0
+Rundeck-Plugin-Tags: java,NodeStep
+Rundeck-Plugin-Source-Link: Please put the link to your source repo he
+ re
+Rundeck-Plugin-Target-Host-Compatibility: all
+Rundeck-Plugin-Description: Provide a short description of your plugin
+  here.
+Rundeck-Plugin-Rundeck-Compatibility-Version: 3.x
+Rundeck-Plugin-Version: 2.0
+Rundeck-Plugin-Name: sequential-commands
+Rundeck-Plugin-Libs: 
+Rundeck-Plugin-Archive: true
+
