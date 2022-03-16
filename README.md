@@ -10,6 +10,6 @@ Run the following command to built the jar file:
 `./gradlew clean build`
 
 # Install
-Copy the `SEQUENTIAL-COMMANDS-x.y.x.jar` file to the `$RDECK_BASE/libext/` directory inside your Rundeck installation.
+Copy the `sequential-commands-plugin-x.y.x.jar` file to the `$RDECK_BASE/libext/` directory inside your Rundeck installation.
 
 Or you can upload the jar file as described [here](https://docs.rundeck.com/docs/learning/howto/calling-apis.html#community-version-prerequisite).
