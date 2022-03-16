@@ -51,15 +51,6 @@ public class SSHConnect {
         return session;
     }
 
-//    public PrintStream printStream(Channel channel) throws Exception {
-//
-//        OutputStream ops = channel.getOutputStream();
-//        PrintStream ps = new PrintStream(ops, true);
-//        channel.connect();
-//
-//        return ps;
-//    }
-
     static void printResult(InputStream input,
                             Channel channel) throws Exception {
         int SIZE = 1024;
