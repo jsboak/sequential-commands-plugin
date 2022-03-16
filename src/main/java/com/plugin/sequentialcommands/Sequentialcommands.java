@@ -86,7 +86,7 @@ public class Sequentialcommands implements NodeStepPlugin, Describable{
           if (entry.getAttributes().get("ssh-password-storage-path") != null) {
               sshKeyStoragePath = entry.getAttributes().get("ssh-password-storage-path");
               usePrivKey = false;
-          } else if () {
+          } else {
               sshKeyStoragePath = entry.getAttributes().get("ssh-key-storage-path");
               usePrivKey = true;
           }
