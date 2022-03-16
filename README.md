@@ -5,9 +5,9 @@ This is a Node Step Job plugin that sends commands to a remote node via SSH. The
 ![Screen Shot 2021-12-30 at 3 55 39 PM](https://user-images.githubusercontent.com/11511251/147795129-b5a593ec-82e8-4acd-a25b-69270fd8c55a.png)
 
 # Build
-Run the following command to built the jar file:
+Run the following command to build the jar file (using Java 1.8):
 
-`./gradlew clean build`
+`gradle build`
 
 # Install
 Copy the `sequential-commands-plugin-x.y.x.jar` file to the `$RDECK_BASE/libext/` directory inside your Rundeck installation.
