@@ -33,7 +33,6 @@ public class SSHConnect {
         JSch jsch = new JSch();
         Session session = jsch.getSession(userName, hostName, 22);
 
-        //TODO: Remove this when deploying for prod use. Or add plugin input-option...
         if (strictHostKey.equals("true")) {
             session.setConfig("strictHostKeyChecking", "yes");
         } else {
