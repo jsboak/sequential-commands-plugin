@@ -29,3 +29,8 @@ This then adds a field within the Job Step where you can input a command that yo
 
 ![Screen Shot 2022-03-16 at 11 20 26 AM](https://user-images.githubusercontent.com/11511251/158660331-b6771155-8765-44bd-a752-53e31ec825cb.png)
 
+The output for this example (on a Cisco CSR) would appear like so:
+
+![Screen Shot 2022-03-16 at 11 27 20 AM](https://user-images.githubusercontent.com/11511251/158661436-391f4134-b96d-4606-898f-34938d9ccad1.png)
+
+Optionally select the **`Strict Host Key Checking`** checkbox to choose whether or not Rundeck checks that the remote-node is in the `known_hosts` file.
