@@ -12,7 +12,7 @@ Run the following command to build the jar file (using Java 1.8):
 # Install
 Copy the `sequential-commands-plugin-x.y.x.jar` file to the `$RDECK_BASE/libext/` directory inside your Rundeck installation.
 
-Or you can upload the jar file as described [here](https://docs.rundeck.com/docs/learning/howto/calling-apis.html#community-version-prerequisite).
+Or you can upload the file through the GUI as described [here](https://docs.rundeck.com/docs/learning/howto/calling-apis.html#community-version-prerequisite).
 
 # Usage
 The plugin makes use of SSH credentials that are set on the nodes in Rundeck. If the `ssh-password-storage-path` attribute is set, then the plugin will authenticate using the SSH password, otherwise it will use the `ssh-key-storage-path` attribute.
