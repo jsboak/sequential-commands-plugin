@@ -1,6 +1,6 @@
 # Sequential SSH Commands Rundeck Plugin
 
-This is a Node Step Job plugin that sends commands to a remote node via SSH. The commands occur in the same SSH channel, and therefore share state.  This is particularly useful for network devices, where you might use the command `conf t` followed by a series of commands such as `interface vlan 1` and `ip address 1.1.1.1 255.255.255.0` and `no shut`.  Use-cases for compute resources would be if you could only execute certain commands from a particular working directory or with certain environment variables set.
+This is a Node Step Job plugin that sends commands to a remote node via SSH. The commands occur in the same SSH channel, and therefore share state.  This is particularly useful for network devices (see example below) or for compute resources when certain commands can strictly be executed from a particular working directory or with certain environment variables set.
 
 ![Screen Shot 2021-12-30 at 3 55 39 PM](https://user-images.githubusercontent.com/11511251/147795129-b5a593ec-82e8-4acd-a25b-69270fd8c55a.png)
 
