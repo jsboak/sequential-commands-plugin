@@ -20,6 +20,8 @@ import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
+import org.jaxen.expr.Step;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -67,7 +69,8 @@ public class Sequentialcommands implements NodeStepPlugin, Describable{
      * This enum lists the known reasons this plugin might fail
      */
    static enum Reason implements FailureReason{
-        ExampleReason
+       SSHKeyNotFound,
+       KeyStorage
    }
 
       @Override
@@ -86,16 +89,13 @@ public class Sequentialcommands implements NodeStepPlugin, Describable{
           if (entry.getAttributes().get("ssh-password-storage-path") != null) {
               sshKeyStoragePath = entry.getAttributes().get("ssh-password-storage-path");
               usePrivKey = false;
-          } else {
+          } else if (entry.getAttributes().get("ssh-key-storage-path") != null) {
               sshKeyStoragePath = entry.getAttributes().get("ssh-key-storage-path");
               usePrivKey = true;
+          } else {
+              throw new NodeStepException("SSH Key or Password must be defined as node attribute.", Reason.SSHKeyNotFound, entry.getNodename());
           }
-
-          try {
-              sshPrivKey = PluginUtil.getPasswordFromKeyStorage(sshKeyStoragePath, context);
-          } catch (StepException e) {
-              e.printStackTrace();
-          }
+          sshPrivKey = PluginUtil.getPasswordFromKeyStorage(sshKeyStoragePath, context, entry);
 
           Gson gson = new GsonBuilder().create();
           JsonArray customFields = gson.fromJson(configuration.get("custom").toString(), JsonArray.class);
