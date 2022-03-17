@@ -3,7 +3,7 @@ plugins {
     id 'java'
 }
 
-version = '0.1.0'
+version = '1.0.0'
 defaultTasks 'clean','build'
 apply plugin: 'java'
 apply plugin: 'groovy'

@@ -255,25 +255,4 @@ class SequentialcommandsSpec extends Specification {
         thrown StepException
     }
 
-//    def "run OK"(){
-//
-//        given:
-//
-//        def example = new Sequentialcommands()
-//        def logger = Mock(PluginLogger)
-//        def context = getContext(logger)
-//        def node = Mock(INodeEntry){
-//                        getNodename()>>"Test"
-//                        getAttributes()>>["attr:name":"Test"]
-//                    }
-//
-//        def configuration = [example:"example123",exampleBoolean:"false"]
-//
-//        when:
-//        example.executeNodeStep(context,configuration,node)
-//
-//        then:
-//        1 * logger.log(2, "Example node step executing on node: Test")
-//    }
-
 }
