@@ -9,6 +9,8 @@ Run the following command to build the jar file (using Java 1.8):
 
 `gradle build`
 
+Alternatively download the latest released Jar from the [Releases Page](https://github.com/jsboak/sequential-commands-plugin/releases)
+
 # Install
 Copy the `sequential-commands-plugin-x.y.x.jar` file to the `$RDECK_BASE/libext/` directory inside your Rundeck installation.
 
