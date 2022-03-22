@@ -2,7 +2,6 @@ package com.plugin.sequentialcommands;
 
 import com.dtolabs.rundeck.core.common.INodeEntry;
 import com.dtolabs.rundeck.core.execution.workflow.steps.FailureReason;
-import com.dtolabs.rundeck.core.execution.workflow.steps.StepException;
 import com.dtolabs.rundeck.core.execution.workflow.steps.node.NodeStepException;
 import com.dtolabs.rundeck.core.plugins.Plugin;
 import com.dtolabs.rundeck.core.plugins.configuration.Describable;
@@ -13,21 +12,20 @@ import com.dtolabs.rundeck.plugins.descriptions.PluginDescription;
 import com.dtolabs.rundeck.plugins.step.PluginStepContext;
 import com.dtolabs.rundeck.plugins.util.DescriptionBuilder;
 import com.dtolabs.rundeck.plugins.util.PropertyBuilder;
-import com.dtolabs.rundeck.plugins.PluginLogger;
 import com.dtolabs.rundeck.plugins.step.NodeStepPlugin;
 import com.google.gson.*;
 import com.jcraft.jsch.Channel;
-import com.jcraft.jsch.JSch;
-import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
-import org.jaxen.expr.Step;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.Map;
 
+/*
+Created by Jake Cohen on 3/20/2022
+This Rundeck plugin is used to send sequential commands via SSH.
+ */
 @Plugin(service=ServiceNameConstants.WorkflowNodeStep,name="sequential-commands")
 @PluginDescription(title="sequential-commands", description="Send multiple commands in a single SSH Session. Particularly useful for network devices.")
 public class Sequentialcommands implements NodeStepPlugin, Describable{
@@ -82,7 +80,7 @@ public class Sequentialcommands implements NodeStepPlugin, Describable{
           String hostname = entry.getAttributes().get("hostname");
           String sshKeyStoragePath;
           boolean usePrivKey;
-          String sshPrivKey = null;
+          String sshPrivKey;
 
           String strictHostKey = (String) configuration.get("strictHostKey");
 

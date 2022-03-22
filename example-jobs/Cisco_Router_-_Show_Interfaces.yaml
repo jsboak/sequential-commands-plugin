@@ -1,0 +1,58 @@
+- defaultTab: output
+  description: "Example Job to Demonstrate Sequential Commands Plugin\n\nThis is a\
+    \ demo job that uses the Sequential Commands plugin to interact with a Cisco Router.\
+    \ \nThe plugin uses the standard SSH Node Attributes to authenticate - either\
+    \ `ssh-password-storage-path` or `ssh-key-storage-path` must be set on the Node.\n\
+    \nIn this example Job, a **Secure Job Option** is used to pass in the Enable password\
+    \ for the Cisco device in order to elevate the user's permissions.\nAlso take\
+    \ note of the **Log Filter** in the Job Step - this is used to hide the input-command\
+    \ lines. This is used for output clarity rather than for security - it can be\
+    \ safely removed.\n\n[Here](https://github.com/jsboak/sequential-commands-plugin)\
+    \ is a link to the plugin's Github with more details on configuration and usage."
+  executionEnabled: true
+  id: 0a2f2c01-6b50-41f2-8e85-8f7ff7ac4454
+  loglevel: INFO
+  name: Cisco Router - Show Interfaces
+  nodeFilterEditable: false
+  nodefilters:
+    dispatch:
+      excludePrecedence: true
+      keepgoing: false
+      rankOrder: ascending
+      successOnEmptyNodeFilter: false
+      threadcount: '1'
+    filter: name:Cisco.*
+  nodesSelectedByDefault: true
+  options:
+  - hidden: true
+    label: secret
+    name: secret
+    secure: true
+    storagePath: keys/project/Development/enable_pass
+    valueExposed: true
+  plugins:
+    ExecutionLifecycle: {}
+  scheduleEnabled: true
+  schedules: []
+  sequence:
+    commands:
+    - configuration:
+        custom: '[{"key":"CMD1","label":"Enable","value":"enable","desc":"Field key
+          CMD1"},{"key":"CMD2","label":"Enable Password","value":"${option.secret}","desc":"Field
+          key CMD2"},{"key":"CMD3","label":"Terminal Length","value":"terminal length
+          0","desc":"Field key CMD3"},{"key":"CMD4","label":"Show Interfaces","value":"show
+          interfaces","desc":"Field key CMD4"}]'
+        strictHostKey: 'false'
+      nodeStep: true
+      plugins:
+        LogFilter:
+        - config:
+            loglevel: verbose
+            matchLoglevel: normal
+            quietMatch: 'true'
+            regex: ip-172-31-10-36#
+          type: quiet-output
+      type: sequential-commands
+    keepgoing: false
+    strategy: node-first
+  uuid: 0a2f2c01-6b50-41f2-8e85-8f7ff7ac4454

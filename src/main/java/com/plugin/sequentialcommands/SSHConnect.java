@@ -4,12 +4,13 @@ import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 
+/*
+Created by Jake Cohen on 3/20/2022
+This Rundeck plugin is used to send sequential commands via SSH.
+ */
 public class SSHConnect {
 
     private String userName;
