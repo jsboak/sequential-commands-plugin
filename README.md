@@ -30,7 +30,8 @@ In the configuration popup, set the field `Field Label` and `Field Key`. Inputs 
 This then adds a field within the Job Step where you can input a command that you want to send to the remote node. Continue to add _Custom Fields_ to the Job step such that you can send multiple commands to the node in a single SSH channel. Commands are sent to the remote node in sequential order. 
 
 ## Example
-As an example, in the screenshot below, the order of commands send to the remote node would be: `enable`, then a secure-job-option containing the _enable password_ is sent to the device (this will not be shown in the logs output), this is then followed by the `terminal length 0` command and then finally the `show interfaces` command.
+As an example, in the screenshot below, the order of commands send to the remote node would be: `enable`, then a secure-job-option containing the _enable password_ is sent to the device (this will not be shown in the logs output), this is then followed by the `terminal length 0` command and then finally the `show interfaces` command. 
+You can view and download this example job [here](https://github.com/jsboak/sequential-commands-plugin/blob/main/example-jobs/Cisco_Router_-_Show_Interfaces.yaml).
 
 ![Screen Shot 2022-03-16 at 11 20 26 AM](https://user-images.githubusercontent.com/11511251/158660331-b6771155-8765-44bd-a752-53e31ec825cb.png)
 
