@@ -1,19 +1,24 @@
 # This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
 
-name: Java CI with Gradle
-
-on:
-  push:
-    branches: [ main ]
-
-permissions:
-  contents: read
+name: Java CI with Gradle, release for tagged
+on: push
+#on:
+#  push:
+#    branches:
+#      - main
+#    tags:
+#      - "*"
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    # Map a step output to a job output
+    outputs:
+      VERSION: ${{ steps.get_version.outputs.VERSION }}
 
     steps:
     - uses: actions/checkout@v3
@@ -22,14 +27,37 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
+    - uses: gradle/wrapper-validation-action@v1
 
     - name: Setup and execute Gradle 'build' task
       uses: gradle/gradle-build-action@v2.1.5
       with:
         arguments: build
 
+    - name: Store build.gradle's currentVersion to VERSION job output
+      id: get_version
+      run: VERSION=$(./gradlew currentVersion -q -Prelease.quiet) && echo "::set-output name=VERSION::$VERSION"
+
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3
       with:
-        name: Grails-Plugin-${{ github.ref_name }}-${{ github.sha }}
-        path: build/libs/sequential-commands-plugin-${{ github.ref_name }}-${{ github.sha }}.jar
+        name: JAR Artifact
+        path: build/libs/sequential-commands-plugin-${{ steps.get_version.outputs.VERSION }}.jar
+
+  release:
+    needs: [build]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    if: startsWith(github.ref, 'refs/tags/')
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: JAR Artifact
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: '${{ github.workspace }}/sequential-commands-plugin-${{ needs.build.outputs.VERSION }}.jar'
+          fail_on_unmatched_files: true
+          token: ${{ github.token }}

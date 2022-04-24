@@ -1,9 +1,9 @@
 plugins {
     id 'groovy'
     id 'java'
+    id 'pl.allegro.tech.build.axion-release' version '1.13.6'
 }
 
-version = '1.0.0'
 defaultTasks 'clean','build'
 apply plugin: 'java'
 apply plugin: 'groovy'
@@ -13,11 +13,15 @@ ext.rundeckPluginVersion= '2.0'
 ext.rundeckVersion= '3.4.x'
 ext.pluginClassNames='com.plugin.sequentialcommands.Sequentialcommands'
 
-
 repositories {
     mavenLocal()
     mavenCentral()
 }
+
+scmVersion {
+    useHighestVersion = true
+}
+version = scmVersion.version
 
 configurations{
     //declare custom pluginLibs configuration to include only libs for this plugin
