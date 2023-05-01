@@ -30,7 +30,7 @@ jobs:
     - uses: gradle/wrapper-validation-action@v1
 
     - name: Setup and execute Gradle 'build' task
-      uses: gradle/gradle-build-action@v2.1.5
+      uses: gradle/gradle-build-action@v2.4.2
       with:
         arguments: build
 
