@@ -34,8 +34,10 @@ public class SSHConnect {
         JSch jsch = new JSch();
         Session session = jsch.getSession(userName, hostName, 22);
 
-        if (strictHostKey.equals("true")) {
-            session.setConfig("strictHostKeyChecking", "yes");
+        // Host key verification is on unless explicitly disabled with strictHostKey=false
+        if (strictHostKey == null || !strictHostKey.trim().equalsIgnoreCase("false")) {
+            jsch.setKnownHosts(System.getProperty("user.home") + "/.ssh/known_hosts");
+            session.setConfig("StrictHostKeyChecking", "yes");
         } else {
             session.setConfig("StrictHostKeyChecking", "no");
         }
