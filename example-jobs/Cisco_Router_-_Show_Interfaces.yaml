@@ -42,7 +42,7 @@
           key CMD2"},{"key":"CMD3","label":"Terminal Length","value":"terminal length
           0","desc":"Field key CMD3"},{"key":"CMD4","label":"Show Interfaces","value":"show
           interfaces","desc":"Field key CMD4"}]'
-        strictHostKey: 'false'
+        strictHostKey: 'true'
       nodeStep: true
       plugins:
         LogFilter:

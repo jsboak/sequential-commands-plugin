@@ -15,6 +15,7 @@ import com.dtolabs.rundeck.plugins.util.PropertyBuilder;
 import com.dtolabs.rundeck.plugins.step.NodeStepPlugin;
 import com.google.gson.*;
 import com.jcraft.jsch.Channel;
+import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 
 import java.io.InputStream;
@@ -56,7 +57,8 @@ public class Sequentialcommands implements NodeStepPlugin, Describable{
             .property(PropertyBuilder.builder()
                     .booleanType("strictHostKey")
                     .title("Strict Host Key Checking")
-                    .description("If selected, require remote-host SSH key to be defined in ~/.ssh/known_hosts file, otherwise do not verify.")
+                    .description("If selected (the default), the remote host's SSH key must match an entry in the Rundeck user's ~/.ssh/known_hosts file, otherwise the step fails. Clear only to disable host key verification.")
+                    .defaultValue("true")
                     .renderingOption(StringRenderingConstants.GROUP_NAME,"SSH Settings")
                     .build()
             )
@@ -68,7 +70,8 @@ public class Sequentialcommands implements NodeStepPlugin, Describable{
      */
    static enum Reason implements FailureReason{
        SSHKeyNotFound,
-       KeyStorage
+       KeyStorage,
+       SSHConnection
    }
 
       @Override
@@ -128,6 +131,8 @@ public class Sequentialcommands implements NodeStepPlugin, Describable{
                   channel.disconnect();
                   session.disconnect();
 
+              } catch (JSchException e) {
+                  throw new NodeStepException("SSH connection failed: " + e.getMessage(), e, Reason.SSHConnection, entry.getNodename());
               } catch (Exception e) {
                   e.printStackTrace();
               }
